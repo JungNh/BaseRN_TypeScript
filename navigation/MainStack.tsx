@@ -1,81 +1,85 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
+import GameScreen from './../screen/game/GameScreen';
+import ApplicationScreen from './../screen/application/ApplicationScreen';
+import FilmScreen from './../screen/film/FilmScreen';
+import BookScreen from './../screen/book/BookScreen';
 
-function Feed() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Feed!</Text>
-    </View>
-  );
-}
+// const TabArr = [
+//   { name: "Game", component: HomeScreen, typeIcons: 'Ionicons', activeIcon: 'game-controller', unActiveIcon: 'game-controller-outline', label: 'Trò chơi' },
+//   { name: "Application", component: SettingsScreen, typeIcons: 'AntDesign', activeIcon: 'windows', unActiveIcon: 'windowso', label: 'Ứng dụng' },
+// ]
 
-function Profile() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
 
-function Notifications() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Notifications!</Text>
-    </View>
-  );
-}
-
-const Tab = createMaterialBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <Tab.Navigator
-      initialRouteName="Feed"
-      activeColor="#e91e63"
-      labelStyle={{ fontSize: 12 }}
-      style={{ backgroundColor: 'tomato' }}
-    >
-      <Tab.Screen
-        name="Feed"
-        component={Feed}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={Notifications}
-        options={{
-          tabBarLabel: 'Updates',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <Tab.Navigator>
+        <Tab.Screen name="Game" component={GameScreen}
+          options={{
+            tabBarIcon: ({ focused }) =>
+            (<>
+              <Ionicons
+                name={focused ? 'game-controller' : 'game-controller-outline'}
+                size={24}
+                color={focused ? '#0f9d58' : '#7d7c7f'} />
+              <Text style={{ color: focused ? '#0f9d58' : '#7d7c7f', fontSize: 10 }}>Trò chơi</Text>
+            </>),
+            tabBarShowLabel: false
+          }} />
+        <Tab.Screen name="Applications" component={ApplicationScreen}
+          options={{
+            tabBarIcon: ({ focused }) =>
+            (
+              <>
+                <AntDesign
+                  name={focused ? 'windows' : 'windowso'}
+                  size={24}
+                  color={focused ? '#0f9d58' : '#7d7c7f'} />
+                <Text style={{ color: focused ? '#0f9d58' : '#7d7c7f', fontSize: 10 }}>Ứng dụng</Text>
+              </>
+            ),
+            tabBarShowLabel: false
+
+          }}
+        />
+        <Tab.Screen name="Film" component={FilmScreen}
+          options={{
+            tabBarIcon: ({ focused }) =>
+            (
+              <>
+                <Ionicons
+                  name={focused ? 'film' : 'film-outline'}
+                  size={24}
+                  color={focused ? '#0f9d58' : '#7d7c7f'} />
+                <Text style={{ color: focused ? '#0f9d58' : '#7d7c7f', fontSize: 10 }}>Phim</Text>
+              </>
+            ),
+            tabBarShowLabel: false
+          }}
+        />
+        <Tab.Screen name="Book" component={BookScreen}
+          options={{
+            tabBarIcon: ({ focused }) =>
+            (
+              <>
+                <MaterialCommunityIcons
+                  name={focused ? 'book' : 'book-outline'}
+                  size={24}
+                  color={focused ? '#0f9d58' : '#7d7c7f'} />
+                <Text style={{ color: focused ? '#0f9d58' : '#7d7c7f', fontSize: 10 }}>Sách</Text>
+              </>
+            ),
+            tabBarShowLabel: false
+          }}
+        />
+
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }

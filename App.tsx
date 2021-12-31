@@ -4,6 +4,7 @@ import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MainStack from './navigation/MainStack';
 
 function HomeScreen({ navigation }: any) {
   return (
@@ -11,21 +12,21 @@ function HomeScreen({ navigation }: any) {
       <Text>Home Screen</Text>
       <Button
         title="Go to Details"
-        onPress={() => navigation.navigate('Details',{name:'Dũng Nguyễn'})}
+        onPress={() => navigation.navigate('Details', { name: 'Dũng Nguyễn' })}
       />
     </View>
   );
 }
 
-function DetailsScreen({route, navigation }: any) {
-  const {name} = route.params
+function DetailsScreen({ route, navigation }: any) {
+  const { name } = route.params
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Xin chào {name}</Text>
       <Text>Details Screen</Text>
       <Button
         title="Go to Details... again"
-        onPress={() => navigation.push('Details',{name:"Dũng Nguyễn"})}
+        onPress={() => navigation.push('Details', { name: "Dũng Nguyễn" })}
       />
       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
       <Button title="Go back" onPress={() => navigation.goBack()} />
@@ -41,12 +42,15 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
+    <>
+    <MainStack/>
+    {/* <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer> */}
+    </>
   );
 }
 
